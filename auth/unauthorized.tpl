@@ -1,0 +1,1 @@
+<div id="login_form">	<p>Welcome, guest!</p>	<p>Try it: <br> test, 123456<br><br>or</p>	Login:<br><input id="login_field" type="text" size="15" maxlength="15"><br>	Password:<br><input id="password_field" type="password" size="15" maxlength="15">	<p><input type="button" value="Login" id="login_button" class="button"> <a href="%registration_page%">Register</a></p></div>
