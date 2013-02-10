@@ -1,4 +1,5 @@
-License
+<h1>License</h1>
+
 This version of reminder is MIT licensed:
 
 Copyright (C) 2012 Max Kadyrov maxkadyrov@gmail.com
