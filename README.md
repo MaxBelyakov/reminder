@@ -1,11 +1,11 @@
-A simple contacts manager program to be in touch with friends. Full description is available on http://maxkadyrov.com
-in projects section. Also, you can try it http://maxkadyrov.com/programs/reminder/ by entering with test user account.
-How to install:
-1. Clone
-2. Add new table, for example - "reminder_db",  to local db and load sql-dump from here: reminder/db_dump/reminder_db.sql.
-3. Config reminder/config.php file:
-  a) set $WEB_SITE to your local path. 
-  b) set db_host to local db host, for example, "localhost"
-  c) set db_user to local user, for example, "root"
-  d) set db_password to your local user password
-  e) set db_database as you created above, "reminder_db"
+A simple contacts manager program to be in touch with friends. Full description is available on http://maxkadyrov.com in projects section.<br> 
+Also, you can try it http://maxkadyrov.com/programs/reminder/ by entering with test user account.<br>
+<p>How to install:</p>
+1. <strong>Clone</strong>
+2. Add new table, for example - "reminder_db",  to local db and load <strong>sql-dump</strong> from here: <strong>reminder/db_dump/reminder_db.sql</strong>.
+3. Config <strong>reminder/config.php</strong> file:<br>
+  a) set <strong>$WEB_SITE</strong> to your local path.<br>
+  b) set <strong>db_host</strong> to local db host, for example, "localhost"<br>
+  c) set <strong>db_user</strong> to local user, for example, "root"<br>
+  d) set <strong>db_password</strong> to your local user password<br>
+  e) set <strong>db_database</strong> as you created above, "reminder_db"<br>
