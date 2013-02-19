@@ -98,7 +98,14 @@ $(document).ready(function() {
 	$('#register_button').click(function() {
 		register();
 	});
-	
+
+	// Listening enter press onto login and password fields
+	$('#login_field, #password_field').keypress(function(e) {
+		if (e.keyCode == 13) {
+			login_submit();
+		}
+	});
+
 });
 
 function register() {
