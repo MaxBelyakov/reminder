@@ -1,13 +1,13 @@
 <?php
 session_start();
 
-function search_results_question_using_like_method($keyword) {
+function search_results_question_using_like_method($keyword, $order) {
 
 	// Connect to DB
 	$db = new DB_variable;
 
 	$keyword = protect_var($keyword, true);
-	$results = "SELECT * FROM `".$db->db_data_table."` WHERE (`name` LIKE '%".$keyword."%') AND (`user_id`=".$_SESSION['id'].") ORDER BY `position`";
+	$results = "SELECT * FROM `".$db->db_data_table."` WHERE (`name` LIKE '%".$keyword."%') AND (`user_id`=".$_SESSION['id'].") ORDER BY `".$order."`";
 	
 	$results_num = ($results = $db->send_query($results)) ? $db->num_rows($results) : 0;
 	if ($results_num === 0) {

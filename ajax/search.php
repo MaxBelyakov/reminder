@@ -5,7 +5,8 @@ $DELETE_IMG_PATH = 'pics/no.png';
 
 if (isset($_POST['search_term'])) {
 	$search = $_POST['search_term'];
-	$results = search_results_question_using_like_method($search);
+	$order = $_POST['order'];
+	$results = search_results_question_using_like_method($search, $order);
 		
 	if (!empty($results)) {
 		foreach($results as $result) {

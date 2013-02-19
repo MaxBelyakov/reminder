@@ -87,6 +87,14 @@
 .contacts_title_name {
 	float: left;
 }
+.contacts_title_name:hover {
+	font-weight: bold;
+	cursor: pointer;
+}
 .contacts_title_last_contact {
 	float: right;
+}
+.contacts_title_last_contact:hover {
+	font-weight: bold;
+	cursor: pointer;
 }

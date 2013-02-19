@@ -76,6 +76,15 @@ $(document).ready(function() {
 	$('#add_new_button').click(function() {
 		add_new_contact();
 	});
+
+	// Sort by name
+	$('.contacts_title_name').click(function() {
+		sort_by_name();
+	});
+	// Sort by last contact
+	$('.contacts_title_last_contact').click(function() {
+		sort_by_last_contact();
+	});
 	
 });
 
@@ -87,7 +96,21 @@ function search_start(search_term) {
 		$('#sortable').sortable({ disabled: false });
 	}
 	// Display contacts
-	$.post(SEARCH_FILE, {search_term:search_term}, function(data) {
+	$.post(SEARCH_FILE, {search_term:search_term, order:'position'}, function(data) {
+		draw_contacts(data);
+	});
+	return false;
+}
+
+function sort_by_name() {	
+	$.post(SEARCH_FILE, {search_term:'', order:'name'}, function(data) {
+		draw_contacts(data);
+	});
+	return false;
+}
+
+function sort_by_last_contact() {	
+	$.post(SEARCH_FILE, {search_term:'', order:'last_date'}, function(data) {
 		draw_contacts(data);
 	});
 	return false;
