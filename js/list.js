@@ -98,7 +98,14 @@ function search_start(search_term) {
 	}
 	// Display contacts
 	$.post(SEARCH_FILE, {search_term:search_term, order:'position'}, function(data) {
-		draw_contacts(data);
+		data_obj = JSON.parse(data);
+		// Get full html code by concatenating JSON parsing
+		var full_html_code = ''
+		data_obj.forEach(function(e) {
+			full_html_code += e.html_code;
+		});
+		// Draw full html
+		draw_contacts(full_html_code);
 	});
 	return false;
 }

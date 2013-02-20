@@ -3,6 +3,7 @@ include '../config.php';
 $EDIT_IMG_PATH = 'pics/edit.png';
 $DELETE_IMG_PATH = 'pics/no.png';
 $UPDATE_IMG_PATH = 'pics/update.png';
+$arr = array();
 
 if (isset($_POST['search_term'])) {
 	$search = $_POST['search_term'];
@@ -19,17 +20,29 @@ if (isset($_POST['search_term'])) {
 			$contact_container = get_color($diff_date_array[0]['in_days'],$result['red_value']);
 			
 			// Print contact line
-			$obj_string = $diff_date_array[0]['date_diff'];
-			echo '<li><div class="'.$contact_container.'" id="contact_container_'.$result['id'].'">
+			$date_string = $diff_date_array[0]['date_diff'];
+
+			$str = '<li><div class="'.$contact_container.'" id="contact_container_'.$result['id'].'">
 					<div class="name_container">
 						<div class="contact_name" id="'.$result['id'].'">'.$result['name'].'</div>
 						<div class="contact_edit"><img src="'.$EDIT_IMG_PATH.'"></img></div>
 						<div class="contact_delete"><img src="'.$DELETE_IMG_PATH.'"></img></div>
 					</div>
-					<div class="contact_date_diff"><div class="contact_update"><img src="'.$UPDATE_IMG_PATH.'"></img></div>'.$obj_string.'</div>
+					<div class="contact_date_diff"><div class="contact_update"><img src="'.$UPDATE_IMG_PATH.'"></img></div>'.$date_string.'</div>
 				  </div></li>
 			';
+
+			array_push($arr, array(
+				'id' => $result['id'], 
+				'color' => $contact_container, 
+				'name' => $result['name'], 
+				'last_date' => $date_string, 
+				'html_code' => $str
+			));
+
 		}
+		echo json_encode($arr);
+		
 	}
 }
 ?>
