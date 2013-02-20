@@ -2,6 +2,7 @@
 include '../config.php';
 $EDIT_IMG_PATH = 'pics/edit.png';
 $DELETE_IMG_PATH = 'pics/no.png';
+$UPDATE_IMG_PATH = 'pics/update.png';
 
 if (isset($_POST['search_term'])) {
 	$search = $_POST['search_term'];
@@ -25,7 +26,7 @@ if (isset($_POST['search_term'])) {
 						<div class="contact_edit"><img src="'.$EDIT_IMG_PATH.'"></img></div>
 						<div class="contact_delete"><img src="'.$DELETE_IMG_PATH.'"></img></div>
 					</div>
-					<div class="contact_date_diff">'.$obj_string.'</div>
+					<div class="contact_date_diff"><div class="contact_update"><img src="'.$UPDATE_IMG_PATH.'"></img></div>'.$obj_string.'</div>
 				  </div></li>
 			';
 		}

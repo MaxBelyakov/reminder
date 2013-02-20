@@ -6,6 +6,7 @@ var UPDATE_COLOR_FILE      = 'ajax/update_color.php';
 var DELETE_CONTACT_FILE    = 'ajax/delete_contact.php';
 var LOAD_SETTINGS_FILE     = 'ajax/load_settings.php';
 var SEARCH_FILE            = 'ajax/search.php';
+var UPDATE_DATE_FILE       = 'ajax/update_date.php';
 
 
 $(document).ready(function() {
@@ -177,15 +178,17 @@ function draw_contacts(data) {
 	// Hide settings
 	$('.settings').hide();
 	
-	// Display edit and delete buttons
+	// Display edit, delete and update buttons
 	$('#sortable div[class*=contact_container_]').hover(function(e) {
 		if ($('#contact_input', this).length === 0) {
 			$('.contact_edit', this).show();
 			$('.contact_delete', this).show();
+			$('.contact_update', this).show();
 		}
 	}, function(e) {
 		$('.contact_edit', this).hide();
-		$('.contact_delete', this).hide();	
+		$('.contact_delete', this).hide();
+		$('.contact_update', this).hide();
 	});
 	var enable = 0;
 	
@@ -218,5 +221,12 @@ function draw_contacts(data) {
 		if (confirm('Delete this field?')) {
 			delete_contact(contact_id);
 		}
+	});
+
+	$('.contact_update').click(function(event) {
+		var contact_obj = $(this).parent().parent().find('.contact_name');
+		$.post(UPDATE_DATE_FILE, {id: $(contact_obj).attr('id')}, function(data) {
+			search_start('');
+		});
 	});
 }
