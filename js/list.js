@@ -21,7 +21,7 @@ $(document).ready(function() {
 	
 	// From jQuery API
 	$("#sortable").sortable();
-    $("#sortable").disableSelection();
+  $("#sortable").disableSelection();
 	
 	// Triggered when the user stopped sorting and the DOM position has changed
 	$('#sortable').sortable().bind('sortupdate', function() {
