@@ -22,13 +22,13 @@ if (isset($_POST['search_term'])) {
 			// Print contact line
 			$date_string = $diff_date_array[0]['date_diff'];
 
-			$str = '<li><div class="'.$contact_container.'" id="contact_container_'.$result['id'].'">
+			$str = '<li><div class="'.$contact_container.'" id="'.$result['id'].'">
 					<div class="name_container">
-						<div class="contact_name" id="'.$result['id'].'">'.$result['name'].'</div>
-						<div class="contact_edit"><img src="'.$EDIT_IMG_PATH.'"></img></div>
-						<div class="contact_delete"><img src="'.$DELETE_IMG_PATH.'"></img></div>
+						<div class="contact_name" id="contact_name_'.$result['id'].'">'.$result['name'].'</div>
+						<div class="contact_edit" id="contact_edit_'.$result['id'].'"><img src="'.$EDIT_IMG_PATH.'"></img></div>
+						<div class="contact_delete" id="contact_delete_'.$result['id'].'"><img src="'.$DELETE_IMG_PATH.'"></img></div>
 					</div>
-					<div class="contact_date_diff"><div class="contact_update"><img src="'.$UPDATE_IMG_PATH.'"></img></div>'.$date_string.'</div>
+					<div class="contact_date_diff"><div class="contact_update" id="contact_update_'.$result['id'].'"><img src="'.$UPDATE_IMG_PATH.'"></img></div>'.$date_string.'</div>
 				  </div></li>
 			';
 

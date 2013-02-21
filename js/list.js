@@ -21,14 +21,14 @@ $(document).ready(function() {
 	
 	// From jQuery API
 	$("#sortable").sortable();
-  $("#sortable").disableSelection();
+  	$("#sortable").disableSelection();
 	
 	// Triggered when the user stopped sorting and the DOM position has changed
 	$('#sortable').sortable().bind('sortupdate', function() {
 		update_list();
 	});
 	
-	// Add new POST
+	// Add new
 	$('.answers_box_addnew').keypress(function(e) {
 		if (e.keyCode == 13) {
 			add_new_contact();
@@ -89,6 +89,9 @@ $(document).ready(function() {
 	
 });
 
+
+
+
 function search_start(search_term) {	
 	// Enable and disable (if you use search) the jQuery sortable UI
 	if (search_term != '') {
@@ -98,17 +101,13 @@ function search_start(search_term) {
 	}
 	// Display contacts
 	$.post(SEARCH_FILE, {search_term:search_term, order:'position'}, function(data) {
-		data_obj = JSON.parse(data);
-		// Get full html code by concatenating JSON parsing
-		var full_html_code = ''
-		data_obj.forEach(function(e) {
-			full_html_code += e.html_code;
-		});
-		// Draw full html
-		draw_contacts(full_html_code);
+		draw_contacts(data);
 	});
 	return false;
 }
+
+
+
 
 function sort_by_name() {	
 	$.post(SEARCH_FILE, {search_term:'', order:'name'}, function(data) {
@@ -117,12 +116,18 @@ function sort_by_name() {
 	return false;
 }
 
+
+
+
 function sort_by_last_contact() {	
 	$.post(SEARCH_FILE, {search_term:'', order:'last_date'}, function(data) {
 		draw_contacts(data);
 	});
 	return false;
 }
+
+
+
 
 function add_new_contact() {
 	var new_contact = $('.answers_box_addnew').attr('value');
@@ -134,11 +139,18 @@ function add_new_contact() {
 		$('.answers_box_addnew').attr('value','');
 	});
 }
+
+
+
+
 function delete_contact(contact_id) {
 	$.post(DELETE_CONTACT_FILE, {contact_id:contact_id}, function() {
 		search_start('');
 	});
 }
+
+
+
 
 function update_list() {
 	// Forming the variables for ajax request
@@ -152,6 +164,10 @@ function update_list() {
 		});
 	});
 }
+
+
+
+
 function update_colors(id, red) {
 	$.post(UPDATE_COLOR_FILE, {
 		id: id,
@@ -160,6 +176,9 @@ function update_colors(id, red) {
 		$('#contact_container_'+id).attr('class',data);
 	});
 }
+
+
+
 
 function close_settings() {
 	// Find active settings
@@ -177,63 +196,69 @@ function close_settings() {
 	update_list();
 }
 
-function draw_contacts(data) {
-	// Display data
-	$('#sortable').html(data);
-	$('.container').slideDown(1000);
-	
-	// Hide settings
-	$('.settings').hide();
-	
-	// Display edit, delete and update buttons
-	$('#sortable div[class*=contact_container_]').hover(function(e) {
-		if ($('#contact_input', this).length === 0) {
-			$('.contact_edit', this).show();
-			$('.contact_delete', this).show();
-			$('.contact_update', this).show();
-		}
-	}, function(e) {
-		$('.contact_edit', this).hide();
-		$('.contact_delete', this).hide();
-		$('.contact_update', this).hide();
-	});
-	var enable = 0;
-	
-	$('.contact_edit').click(function(event) {
-		if (enable == 0) {
-			enable = 1;
-			// Save contact name and contact_obj
-			contact_text = $(this).parent().find('.contact_name').html();
-			var contact_obj = $(this).parent().find('.contact_name');
-			
-			// Load current settings
-			$.post(LOAD_SETTINGS_FILE, {
-				id: $(contact_obj).attr('id'),
-				name: contact_text
-			}, function(data) {
-				contact_obj.html(data);
-				$('#contact_input').focus();
-				$('#contact_input').val($('#contact_input').val()); // Deselect text inside
-			});
-			
-			// Hide buttons
-			$(this).hide();
-			$(this).parent().find('.contact_delete').hide();
-			enable = 0;
-		}
-	});
-	
-	$('.contact_delete').click(function(event) {
-		var contact_id = $(this).parent().find('.contact_name').attr('id');
-		if (confirm('Delete this field?')) {
-			delete_contact(contact_id);
-		}
-	});
 
-	$('.contact_update').click(function(event) {
-		var contact_obj = $(this).parent().parent().find('.contact_name');
-		$.post(UPDATE_DATE_FILE, {id: $(contact_obj).attr('id')}, function(data) {
-			search_start('');
+
+
+function draw_contacts(data) {
+
+	$('#sortable').html('');
+	data_obj = JSON.parse(data);
+
+	// Hide settings
+	//$('.settings').hide();
+
+	data_obj.forEach(function(contact_obj) {
+		$('#sortable').append(contact_obj.html_code);
+
+		// Display edit, delete and update buttons
+		$('#' + contact_obj.id).hover(function(e) {
+			if ($('#contact_input', this).length === 0) {
+				$('.contact_edit', this).show();
+				$('.contact_delete', this).show();
+				$('.contact_update', this).show();
+			}
+		}, function(e) {
+			$('.contact_edit', this).hide();
+			$('.contact_delete', this).hide();
+			$('.contact_update', this).hide();
 		});
+
+		var enable = 0;
+
+		$('#contact_edit_' + contact_obj.id).click(function(e) {
+			if (enable == 0) {
+				enable = 1;
+				
+				// Load current settings
+				$.post(LOAD_SETTINGS_FILE, {
+					id: contact_obj.id,
+					name: contact_obj.name
+				}, function(new_data) {
+					$('#contact_name_' + contact_obj.id).html(new_data);
+					$('#contact_input').focus();
+					$('#contact_input').val($('#contact_input').val()); // Deselect text inside
+				});
+				
+				// Hide buttons
+				$(this).hide();
+				$('.contact_delete').hide();
+				$('.contact_update').hide();
+				enable = 0;
+			}
+		});
+
+		$('#contact_delete_' + contact_obj.id).click(function() {
+			if (confirm('Delete this field?')) {
+				delete_contact(contact_obj.id);
+			}
+		});
+
+		$('.contact_update').click(function() {
+			$.post(UPDATE_DATE_FILE, {id: contact_obj.id}, function(data) {
+				search_start('');
+			});
+		});
+
 	});
+	$('.container').slideDown(1000);
 }
