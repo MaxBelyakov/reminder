@@ -18,7 +18,6 @@ function search_results_question_using_like_method($keyword, $order) {
 								'id' => $results_row['id'],
 								'name' => $results_row['name'],
 								'last_date' => $results_row['last_date'],
-								'yellow_value' => $results_row['yellow_val'],
 								'red_value' => $results_row['red_val']
 			);
 		}

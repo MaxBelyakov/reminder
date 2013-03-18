@@ -31,6 +31,7 @@
 
 <?php
 // Login form
+$user_panel = '';
 if (empty($user_login) or empty($user_id)) {
 	$user_panel .= file_get_contents($LOGIN_UNAUTHORIZED_PATH);
 	$user_panel = str_replace("%registration_page%", $AUTH_PAGE_PATH, $user_panel);
