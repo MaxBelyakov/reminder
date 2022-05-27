@@ -1,5 +1,4 @@
-A simple contacts manager program to be in touch with friends. Full description is available on http://maxkadyrov.com in projects section.<br> 
-Also, you can try it http://maxkadyrov.com/programs/reminder/ by entering with test user account.<br>
+A simple contacts manager program to be in touch with friends.
 <p>How to install:</p>
 1. <strong>Clone</strong>
 2. Add new table, for example - "reminder_db",  to local db and load <strong>sql-dump</strong> from here: <strong>reminder/db_dump/reminder_db.sql</strong>.
